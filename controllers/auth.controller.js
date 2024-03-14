@@ -10,7 +10,7 @@ const authController = {
         if (!data || !data.username || !data.password) {
             res.status(422)
                 .json({
-                    errorMessage: 'Invalide data'
+                    errorMessage: 'Invalid data'
                 });
             return;
         }
@@ -21,7 +21,7 @@ const authController = {
         if (!member) {
             res.status(400)
                 .json({
-                    errorMessage: 'Invalide credential'
+                    errorMessage: 'Invalid credential'
                 });
             return;
         }

@@ -1,10 +1,10 @@
 import { decodeJwt } from '../utils/jwt.utils.js';
 
+/**
+ * Middleware d'authentification par Bearer token (JWT)
+ */
 export const authTokenMiddleware = () => {
 
-    /**
-     * Middleware traitement de token de la requete
-     */
     return (req, res, next) => {
         
         // Récuperation de l'authentification : Bearer eyJhbGciOiJIUzUxMiIsInR...
@@ -31,6 +31,9 @@ export const authTokenMiddleware = () => {
     }
 }
 
+/**
+ * Middleware d'autorisation via le token
+ */
 export const authorizeMiddleware = (...roles) => {
 
     return (req, res, next) => {
