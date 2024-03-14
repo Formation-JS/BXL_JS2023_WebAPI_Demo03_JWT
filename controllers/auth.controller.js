@@ -1,4 +1,5 @@
 import memberService from '../services/member.service.js';
+import { generateJwt } from '../utils/jwt.utils.js';
 
 const authController = {
 
@@ -6,27 +7,31 @@ const authController = {
         const data = req.body;
 
         // Validation
-        if(!data || !data.username || !data.password) {
+        if (!data || !data.username || !data.password) {
             res.status(422)
-               .json({
+                .json({
                     errorMessage: 'Invalide data'
-               });
+                });
             return;
         }
 
         // Login via le service
         const member = memberService.login(data.username, data.password);
 
-        if(!member) {
+        if (!member) {
             res.status(400)
-               .json({
+                .json({
                     errorMessage: 'Invalide credential'
-               });
+                });
             return;
         }
 
-        // TODO Create et send a JWT !
-        res.sendStatus(204);
+        // Générer le JWT
+        const token = await generateJwt(member);
+
+        // Envoi du token
+        res.status(200)
+           .json({ token });
     }
 }
 
