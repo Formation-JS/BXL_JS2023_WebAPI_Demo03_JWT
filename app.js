@@ -4,6 +4,7 @@ import 'dotenv/config';
 // Imports
 import express from 'express';
 import morgan from 'morgan';
+import mainRouter from './routes/index.js';
 
 // Variable d'en
 const {PORT, NODE_ENV} = process.env;
@@ -17,6 +18,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 
 //* Routing
+app.use('/api', mainRouter);
 
 //* Start
 app.listen(PORT, () => {
