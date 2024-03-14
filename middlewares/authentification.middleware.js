@@ -30,3 +30,27 @@ export const authTokenMiddleware = () => {
             });
     }
 }
+
+export const authorizeMiddleware = (...roles) => {
+
+    return (req, res, next) => {
+
+        // Récuperation du Token d'identification
+        const token = req.token;
+
+        // Si pas de token -> Erreur 401 Unauthorized
+        if(!token) {
+            res.sendStatus(401);
+            return;
+        }
+
+        // Si le role n'est pas valide -> Erreur 403 
+        if(roles.length > 0 && !roles.includes(token.role)) {
+            res.sendStatus(403);
+            return;
+        }
+
+        // Sinon, la requete est validé !
+        next();
+    }
+}
