@@ -26,6 +26,26 @@ export const generateJwt = ({id, username, role}) => {
     });
 };
 
-export const decodeJwt = () => {
-    throw new Error('Not implemented');
+export const decodeJwt = (token) => {
+
+    return new Promise((resolve, reject) => {
+
+        // Donnée pour valider le token
+        const secret = process.env.JWT_SECRET;
+        const options = {
+            audience: process.env.JWT_AUDIENCE,
+            issuer: process.env.JWT_ISSUER
+        }
+
+        // Valide le token
+        jwt.verify(token, secret, options, (error, data) => {
+            if(error) {
+                reject(error);
+                return;
+            }
+
+            resolve(data);
+        });
+    });
+
 }
