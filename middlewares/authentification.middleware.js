@@ -19,14 +19,16 @@ export const authTokenMiddleware = () => {
             return;
         }
 
-        // Si JWT -> Décoder et il est ajouter à "req.token"
+        // Si JWT -> Décoder le token, s'il est valide, celui-ci est ajouter à "req.token"
         decodeJwt(token)
             .then((data) => {
                 req.token = data;
-                next();
             })
             .catch((error) => {
-                res.status(400).json({ errorMessage: 'Invalid JWT' });
+                req.token = null;
+            })
+            .finally(() => {
+                next();
             });
     }
 }
