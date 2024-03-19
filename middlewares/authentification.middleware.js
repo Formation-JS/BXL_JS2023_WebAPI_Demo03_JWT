@@ -40,7 +40,7 @@ export const authorizeMiddleware = (...roles) => {
 
     return (req, res, next) => {
 
-        // Récuperation du Token d'identification
+        // Récuperation du Token d'identification (cf : authTokenMiddleware)
         const token = req.token;
 
         // Si pas de token -> Erreur 401 Unauthorized

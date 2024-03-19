@@ -12,7 +12,7 @@ const messageController = {
 
         res.status(200)
         .json({
-             message: 'Bonjour...'
+             message: 'Bonjour ' + req.token.username
         });
     },
     
